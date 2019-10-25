@@ -43,10 +43,13 @@ namespace TestSerial_ConsoleApp
         static void Read()
         {
             string data;
-            int m = DateTime.Now.Minute;
+            DateTime dt = DateTime.Now;
+            int m = dt.Minute;
+            int s = dt.Second;
 
             data = _serialPort.ReadLine();
-            Console.WriteLine(data);
+            Console.Write(data);
+            Console.WriteLine("  Min: "+m+" Sec: "+s);
 
             if (m != 5 && m != 15 && m != 25 && m != 35 && m != 45 && m != 55)
             {
@@ -71,6 +74,7 @@ namespace TestSerial_ConsoleApp
                         context.WeatherRecords.Add(wr);
                         context.SaveChanges();
                         _notCollected = false;
+                        Console.WriteLine("Saved into DB !");
                     }
                 }
             }
