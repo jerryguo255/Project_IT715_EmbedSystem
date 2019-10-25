@@ -1,0 +1,48 @@
+﻿@model WeatherRecordServer.Models.WeatherRecords
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>WeatherRecords</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateCollection)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateCollection)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TempOutside)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TempOutside)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TempIndoor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TempIndoor)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HumOutside)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HumOutside)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HumIndoor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HumIndoor)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

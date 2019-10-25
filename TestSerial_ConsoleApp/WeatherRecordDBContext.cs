@@ -10,6 +10,8 @@ namespace TestSerial_ConsoleApp
             @"Data Source=192.168.1.25;Database=WeatherRecordDB;Initial Catalog=WeatherRecordDB;
                 User ID=bellyful_dev;Password=Password1!;Connect Timeout=30;Encrypt=False;
                 TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
+            //Scaffold-DbContext "Data Source=192.168.1.25;Database=WeatherRecordDB;Initial Catalog=WeatherRecordDB;User ID=bellyful_dev;Password=Password1!;Connect Timeout=30;Encrypt=False;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
         }
     }
 }
