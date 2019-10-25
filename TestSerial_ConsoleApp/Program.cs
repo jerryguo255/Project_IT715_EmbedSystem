@@ -44,12 +44,12 @@ namespace TestSerial_ConsoleApp
         {
             string data;
             DateTime dt = DateTime.Now;
+            int h = dt.Hour;
             int m = dt.Minute;
             int s = dt.Second;
 
             data = _serialPort.ReadLine();
-            Console.Write(data);
-            Console.WriteLine("  Min: "+m+" Sec: "+s);
+            Console.WriteLine(h+" : " + m +" : "+s+"  "+data);
 
             if (m != 5 && m != 15 && m != 25 && m != 35 && m != 45 && m != 55)
             {
