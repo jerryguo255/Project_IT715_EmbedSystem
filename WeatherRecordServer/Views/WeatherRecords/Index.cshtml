@@ -1,59 +1,99 @@
-﻿@model IEnumerable<WeatherRecordServer.Models.WeatherRecords>
+﻿@using System.Globalization
+@model IEnumerable<WeatherRecordServer.Models.WeatherRecords>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Data Records";
+    TimeSpan timeSpan = TimeSpan.Zero;
+
+    string GetTime(DateTime dateTime)
+    {
+        if (dateTime == null) { return "Null"; }
+
+        if (DateTime.Now.Day != dateTime.Day)
+        {//不在同一天
+
+
+            if (DateTime.Now.Day - dateTime.Day == 1)
+            {
+                return string.Format("yday {0}", dateTime.ToString("HH:mm tt", new CultureInfo("en-US")));
+            }
+            return string.Format("{0}", dateTime.ToString("dd/MM HH:mm", new CultureInfo("en-US")));
+
+        }
+        else
+        {//在同一天
+            timeSpan = DateTime.Now - dateTime;//20：00 == 27
+
+            //如果相差大于1小时 显示具体时间
+            if (timeSpan >= TimeSpan.FromHours(1)) { return string.Format("{0}", dateTime.ToString("HH:mm tt", new CultureInfo("en-US"))); }
+            //如果相差大于1分钟 显示分钟数
+            if (timeSpan > TimeSpan.FromMinutes(1)) { return string.Format("{0:N0} mins ago", timeSpan.TotalMinutes); }
+            //其他 显示1分钟
+            return "1 min ago";
+        }
+    }
+
 }
 
-<h1>Index</h1>
+    <h2>Data Records(Every 10 Mins)</h2>
+    <br />  
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table id="weatherData" class="table hover nowrap" >
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateCollection)
+                Collection Time
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TempOutside)
+                Indoor Temp
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TempIndoor)
+                Indoor Humidity
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HumOutside)
+                OutSide Temp
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HumIndoor)
+                OutSide Humidity
             </th>
-            <th></th>
+
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCollection)
+            <td data-label="Collection Time">
+
+                @GetTime(item.DateCollection)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TempOutside)
+            <td data-label ="Indoor Temp">
+                @Html.DisplayFor(modelItem => item.TempIndoor)°C
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TempIndoor)
+            <td data-label ="Indoor Humidity">
+                @Html.DisplayFor(modelItem => item.HumIndoor)%
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HumOutside)
+            <td data-label ="OutSide Temp">
+                @Html.DisplayFor(modelItem => item.TempOutside)°C
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HumIndoor)
+
+            <td data-label ="OutSide Humidity">
+                @Html.DisplayFor(modelItem => item.HumOutside)%
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+
         </tr>
-}
+        }
     </tbody>
 </table>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            
+            $('#weatherData').DataTable({  "order": [], "columnDefs": [
+        {"className": "dt-center", "targets": "_all"}
+      ],    paging: false,
+                    scrollY: 680,
+                    info: false,});
+        });
+    </script>
+}

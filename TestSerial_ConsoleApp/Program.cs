@@ -49,13 +49,13 @@ namespace TestSerial_ConsoleApp
             int s = dt.Second;
 
             data = _serialPort.ReadLine();
-            Console.WriteLine(h+":" + m +":"+s+"  "+data);
+            Console.WriteLine(h+":" + m +":"+s+"  "+data);// 11:42:22  13  55  16 60
             _serialPort.DiscardOutBuffer();
             _serialPort.DiscardInBuffer();
             //There must clear serial port received buffer 
             if (m != 5 && m != 15 && m != 25 && m != 35 && m != 45 && m != 55)
             {
-                _notCollected = true;
+                _notCollected = true;// init as not collected
             }
             else 
             {
@@ -80,17 +80,6 @@ namespace TestSerial_ConsoleApp
                     }
                 }
             }
-
-
-
-
-
-
         }
     }
 }
-
-
-
-
-

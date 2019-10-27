@@ -1,8 +1,271 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@model HomeViewModel
+@using System.Globalization
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2>Welcome to jerry 's Weather station </h2>
+    <br />
 </div>
+<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"></a>
+<form asp-action="Index" method="get">
+    <div id="showDashboard" class="form-group">
+        <input type="text" name="num" value="" />
+        <button class="btn btn-outline-success btn-sm " type="submit">Show Days</button>
+    </div>
+</form>
+<div class="lineChart-containerTop">
+    <canvas id="lineChartHum"></canvas>
+</div>
+<br />
+<div class="lineChart-containerButtom">
+    <canvas id="lineChartTemp"></canvas>
+</div>
+
+
+
+
+<script>
+    Chart.defaults.global.defaultFontColor = 'Black';
+    Chart.defaults.global.defaultFontSize = 15;
+
+    var lables = []; //init an JS array
+
+    @foreach (var date in Model.days)
+    {
+        @:lables.push("@string.Format("{0}", date.ToString("dd/MM", new CultureInfo("en-US")))");
+    }//trives
+    lables.reverse();
+    // ========= get lables
+
+    var HumDatasIndoor = [];
+       @foreach (var hum in Model.daysAvgInDoorHum)
+       {
+           @:HumDatasIndoor.push(@Math.Round(hum,1).ToString())
+      };
+    HumDatasIndoor.reverse();
+
+    var TempDatasIndoor = [];
+        @foreach (var temp in Model.daysAvgInDoorTemp)
+    {
+        @:TempDatasIndoor.push(@Math.Round(temp,1).ToString());
+    }
+    TempDatasIndoor.reverse();
+
+    var HumDatasOutside = [];
+            @foreach (var hum in Model.daysAvgOutSideHum)
+    {
+        @:HumDatasOutside.push(@Math.Round(hum,1).ToString());
+    }
+    HumDatasOutside.reverse();
+
+    var TempDatasOutside = [];
+            @foreach (var temp in Model.daysAvgOutSideTemp)
+    {
+        @:TempDatasOutside.push(@Math.Round(temp,1).ToString());
+    }
+    TempDatasOutside.reverse();
+    //get datas
+
+    var lineChartHumData = {
+            labels: lables,
+            datasets: [{
+                label: "Indoor",
+                backgroundColor: "rgba(255,99,132,1)",
+                borderColor: "rgba(255,99,132,1)",
+                borderWidth: 2,
+                hoverBackgroundColor: "rgba(255,99,132,1)",
+                hoverBorderColor: "rgba(255,99,132,1)",
+                data: HumDatasIndoor,
+                   @* [@Model.DeliveryHrsReportMonthly[Month.Jan] ,  @Model.DeliveryHrsReportMonthly[Month.Feb] ,
+                    @Model.DeliveryHrsReportMonthly[Month.Mar], @Model.DeliveryHrsReportMonthly[Month.Apr],
+                    @Model.DeliveryHrsReportMonthly[Month.May], @Model.DeliveryHrsReportMonthly[Month.Jun],
+                    @Model.DeliveryHrsReportMonthly[Month.Jul], @Model.DeliveryHrsReportMonthly[Month.Aug],
+                    @Model.DeliveryHrsReportMonthly[Month.Sep], @Model.DeliveryHrsReportMonthly[Month.Oct],
+                    @Model.DeliveryHrsReportMonthly[Month.Nov] ,  @Model.DeliveryHrsReportMonthly[Month.Dec] ,],*@
+                // yAxisID: 'y-axis-1',
+
+                    fill: false },
+                {
+                label: "Outside",
+                backgroundColor: "rgba(23, 162, 184,0.8)",
+                borderColor: "rgba(23, 162, 184,0.8)",
+                borderWidth: 2,
+                hoverBackgroundColor: "rgba(23, 162, 184,0.8)",
+                hoverBorderColor: "rgba(23, 162, 184,0.8)",
+                 data: HumDatasOutside,
+                @* [@Model.DeliveriesReportMonthly[Month.Jan] ,  @Model.DeliveriesReportMonthly[Month.Feb] ,
+                    @Model.DeliveriesReportMonthly[Month.Mar],@Model.DeliveriesReportMonthly[Month.Apr],
+                    @Model.DeliveriesReportMonthly[Month.May], @Model.DeliveriesReportMonthly[Month.Jun],
+                    @Model.DeliveriesReportMonthly[Month.Jul], @Model.DeliveriesReportMonthly[Month.Aug],
+                    @Model.DeliveriesReportMonthly[Month.Sep], @Model.DeliveriesReportMonthly[Month.Oct],
+                    @Model.DeliveriesReportMonthly[Month.Nov] ,  @Model.DeliveriesReportMonthly[Month.Dec] ,],*@
+                fill: false,
+                //yAxisID: 'y-axis-2',
+            }]
+        };
+
+   var lineChartHumOptions = {
+            legend: {
+            display: true,
+                position: 'bottom',
+
+        },//ddddd
+            title: {
+                display: true,
+              text: 'Daily Average Humidity (%)',
+
+            },
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        // labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                      //  labelString: 'Daily Average Humidity %'
+                    }
+                }]
+            },
+            hover: {
+                animationDuration: 0 // 防止鼠标移上去，数字闪烁
+            },
+            "animation": {
+                "duration": 1,
+                "onComplete": function () {
+                    var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+            },
+        };
+
+
+    Chart.Line('lineChartHum', {
+            options: lineChartHumOptions,
+            data: lineChartHumData
+     });
+
+
+
+
+    var lineChartTempData = {
+            labels: lables,
+            datasets: [{
+                label: "Indoor",
+                backgroundColor: "rgba(255,99,132,1)",
+                borderColor: "rgba(255,99,132,1)",
+                borderWidth: 2,
+                hoverBackgroundColor: "rgba(255,99,132,1)",
+                hoverBorderColor: "rgba(255,99,132,1)",
+                data: TempDatasIndoor,
+                   @* [@Model.DeliveryHrsReportMonthly[Month.Jan] ,  @Model.DeliveryHrsReportMonthly[Month.Feb] ,
+                    @Model.DeliveryHrsReportMonthly[Month.Mar], @Model.DeliveryHrsReportMonthly[Month.Apr],
+                    @Model.DeliveryHrsReportMonthly[Month.May], @Model.DeliveryHrsReportMonthly[Month.Jun],
+                    @Model.DeliveryHrsReportMonthly[Month.Jul], @Model.DeliveryHrsReportMonthly[Month.Aug],
+                    @Model.DeliveryHrsReportMonthly[Month.Sep], @Model.DeliveryHrsReportMonthly[Month.Oct],
+                    @Model.DeliveryHrsReportMonthly[Month.Nov] ,  @Model.DeliveryHrsReportMonthly[Month.Dec] ,],*@
+                // yAxisID: 'y-axis-1',
+
+                    fill: false },
+                {
+                label: "Outside",
+                backgroundColor: "rgba(23, 162, 184,0.8)",
+                borderColor: "rgba(23, 162, 184,0.8)",
+                borderWidth: 2,
+                hoverBackgroundColor: "rgba(23, 162, 184,0.8)",
+                hoverBorderColor: "rgba(23, 162, 184,0.8)",
+                 data: TempDatasOutside,
+                @* [@Model.DeliveriesReportMonthly[Month.Jan] ,  @Model.DeliveriesReportMonthly[Month.Feb] ,
+                    @Model.DeliveriesReportMonthly[Month.Mar],@Model.DeliveriesReportMonthly[Month.Apr],
+                    @Model.DeliveriesReportMonthly[Month.May], @Model.DeliveriesReportMonthly[Month.Jun],
+                    @Model.DeliveriesReportMonthly[Month.Jul], @Model.DeliveriesReportMonthly[Month.Aug],
+                    @Model.DeliveriesReportMonthly[Month.Sep], @Model.DeliveriesReportMonthly[Month.Oct],
+                    @Model.DeliveriesReportMonthly[Month.Nov] ,  @Model.DeliveriesReportMonthly[Month.Dec] ,],*@
+                fill: false,
+                //yAxisID: 'y-axis-2',
+            }]
+        };
+
+   var lineChartTempOptions = {
+            legend: {
+            display: true,
+                position: 'bottom',
+
+        },//ddddd
+            title: {
+                display: true,
+               text:  'Daily Average Degree (°C)',
+
+            },
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        // labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                       // labelString: 'Daily Average Degree °C'
+                    }
+                }]
+            },
+            hover: {
+                animationDuration: 0 // 防止鼠标移上去，数字闪烁
+            },
+            "animation": {
+                "duration": 1,
+                "onComplete": function () {
+                    var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+            },
+        };
+
+
+    Chart.Line('lineChartTemp', {
+            options: lineChartTempOptions,
+            data: lineChartTempData
+     });
+
+</script>

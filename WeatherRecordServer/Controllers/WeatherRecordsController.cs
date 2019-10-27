@@ -21,8 +21,9 @@ namespace WeatherRecordServer.Controllers
         // GET: WeatherRecords
         public async Task<IActionResult> Index()
         {
-            var sss = 2;
-            return View(await _context.WeatherRecords.ToListAsync());
+            var list = await _context.WeatherRecords.ToListAsync();
+            list.Reverse();
+            return View(list);
         }
 
         // GET: WeatherRecords/Details/5

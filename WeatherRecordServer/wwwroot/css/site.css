@@ -1,6 +1,59 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+#showDashboard {
+    position: absolute;
+    top: 110px;
+    left: 22vw;
+}
+
+.lineChart-containerTop {
+    position: relative;
+    margin: auto;
+    height: 35vh;
+    width: 55vw;
+    background-color: rgba(200, 244, 249,0.4);
+    border-radius: 22px;
+    box-shadow: 5px 5px 15px #ccc;
+}
+
+.lineChart-containerButtom {
+    position: relative;
+    margin: auto;
+    margin-bottom: 40px;
+    height: 35vh;
+    width: 55vw;
+    background-color: rgba(229,255, 229,0.8);
+    border-radius: 22px;
+    box-shadow: 5px 5px 15px #ccc;
+}
+
+/* <= 568px */
+@media screen and (max-width: 35.5em) {
+    .lineChart-containerTop {
+        position: relative;
+        margin: auto;
+        height: 35vh;
+        width: 95%;
+        background-color: rgba(200, 244, 249,0.4);
+        border-radius: 22px;
+        box-shadow: 5px 5px 15px #ccc;
+    }
+    .lineChart-containerButtom {
+        position: relative;
+        margin-bottom: 15px;
+        height: 35vh;
+        width: 95%;
+        background-color: rgba(229,255, 229,0.8);
+        border-radius: 22px;
+        box-shadow: 5px 5px 15px #ccc;
+    }
+
+    
+}
+
+
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -69,3 +122,417 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+/*------------*/
+/* Please see documentationttt at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+
+
+
+
+.btn-info {
+    
+    background-color: rgb(140,148,167);
+    border:none;
+}
+.btn-danger {
+    background-color: #b17a7d;
+    border: none;
+}
+/*.btn-primary {
+    background-color: rgb(143,144,76);
+    border: none;
+}*/
+
+/*.table tr {
+    border-bottom: 2px lightpink solid;
+    border-top: 2px lightpink solid;
+}*/
+.nav-pills .nav-link.active {
+    color: #fff;
+    background-color: lightcoral;
+}
+
+.alert-danger {
+    background-color: orangered;
+    color: azure;
+}
+#status-message {
+    position: fixed;
+    left: 27%;
+    top: 3%;
+    width: 66%;
+        transition: all 1s;
+}
+
+h6 {
+    margin-top: 20px;
+    text-align:center;
+    margin-bottom:3px;
+}
+.detailPageContent {
+    margin-left: 15%;
+}
+
+
+.table th {
+    border-top: none;
+}
+
+
+
+main>p>a {
+    margin-left:13px;
+}
+.container-fluid > button {
+    border: none;
+}
+#content-bg {
+    /*background-image: url("/images/bgRed.jpg");*/
+    background-repeat: no-repeat;
+    z-index:-1;
+    height:333px;
+    width:100%;
+    position:fixed;
+    margin-left:233px;
+}
+#content-bg-inner {
+    height: 333px;
+    background: rgba(255,255,255,.1);
+}
+
+
+.lineChart-container {
+    position: relative;
+    margin: auto;
+    height: 35vh;
+    width: 50vw;
+    background-color: rgba(255, 229, 229,0.8);
+    border-radius: 22px;
+    box-shadow: 5px 5px 15px #ccc;
+}
+.barChart-container {
+    position: relative;
+    margin: auto;
+    
+    margin-bottom: 40px;
+    height: 35vh;
+    width: 50vw;
+    background-color: rgba(210, 244, 249,0.4);
+    border-radius: 22px;
+    box-shadow: 5px 5px 15px #ccc;
+}
+
+/*.lineChart-container {
+    position: relative;
+    margin: auto;
+    height: 40vh;
+    width: 40vw;
+    background-color: rgb(210, 244, 249);
+    border-radius: 5%;
+    box-shadow: 10px 10px 5px #888888;
+}
+.barChart-container {
+    position: relative;
+    margin-bottom: 5px;
+    height: 40vh;
+    width: 40vw;
+    background-color: rgba(255, 229, 229,0.3);
+    border-radius: 5%;
+    box-shadow: 10px 10px 5px #888888;
+}*/
+
+
+
+
+
+
+
+
+.action-btns {
+    /*width: 116px;*/
+    height: 39px;
+}
+.hoverLink {
+    color: #17a2b8;
+}
+.hoverLink:hover {
+    color:black;
+}
+
+
+.dataTables_wrapper .dataTables_filter {
+    margin-top: 0em;
+}
+
+
+.dataTables_filter {
+    display:none;
+    position: absolute;
+    top: -50px;
+    left: 150px;
+    color: grey;
+}
+
+    .dataTables_filter input {
+        display: none;
+        background-color: rgba(255,255,255,0.6)
+    }
+
+#bellyful-order thead tr {
+    display: none;
+    
+}
+
+#bellyful-order {
+    width: 100% !important;
+}
+
+.googleIcon {
+    display: inline-block;
+    margin-right: 5px;
+    font-weight: 200;
+}
+
+
+/*table th, table tr {
+    border: 0.5px solid #ddd;
+    padding: 5px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: center;
+}*/
+
+table td,
+table th{
+    text-align: center;
+    
+}
+
+
+
+
+.footer {
+    text-align: center;
+    margin-top: 12px;
+    /*position: absolute;
+    bottom: 22px;*/
+}
+@media screen and (min-width:960px) {
+    #btnStringUp {
+        position: relative;
+        bottom: 746px;
+        left: 25px;
+    }
+    .wp-13 {
+        width: 13%;
+    }
+
+    .wp-12 {
+        width: 12%;
+    }
+
+    .wp-10 {
+        width: 10%;
+    }
+    .wp-5 {
+        width: 5%;
+    }
+    /* .footer {
+        text-align: center;
+        margin-top: 12px;
+        position: absolute;
+        bottom: 22px;
+        left: 50%;
+    }*/
+    #content p {
+        margin-left: 12px;
+    }
+    .dataTables_scrollHeadInner,
+    .dataTables_scrollHeadInner > * {
+        width: 100% !important;
+    }
+   
+
+}
+
+
+/* <= 568px */
+@media screen and (max-width: 35.5em) {
+    #showDashboard {
+        position: absolute;
+        top: 95px;
+        right: 51px
+    }
+    .h2, h2 {
+        font-size: 1.5rem;
+    }
+    table.dataTable th.dt-center, table.dataTable td.dt-center, table.dataTable td.dataTables_empty {
+        text-align: right;
+    }
+
+    #btnStringUp {
+        position: relative;
+        bottom: 540px;
+        left: 15px;
+    }
+    .alert-danger {
+        
+        color: azure;
+    }
+    #status-message {
+        z-index: 999;
+        position: fixed;
+        left: 5%;
+        top: 2%;
+        width: 90%;
+        opacity: 1;
+        transition: all 1s;
+    }
+
+    .detailPageContent {
+        margin-left:1%;
+    }
+
+
+
+    .dataTables_filter {
+        display: none;
+        position: absolute;
+        top: -50px;
+        right: 25px;
+        color: grey;
+    }
+        .dataTables_filter input {
+            display:none;
+            width:48%;
+            background-color: rgba(255,255,255,0.6)
+        }
+
+
+    #sidebar {
+      
+        box-shadow: 0px 0px 0px #FFF !important;
+    }
+    #content-bg {
+        background-image: url("/images/bgRed.jpg");
+        background-repeat: no-repeat;
+       
+        height: 333px;
+        width: 100%;
+        position: fixed;
+        margin-left: 0px;
+    }
+
+    #content-bg-inner {
+        height: 333px;
+        background: rgba(255,255,255,.1);
+    }
+
+    table {
+        border: 0;
+    }
+
+        table thead {
+            display: none;
+        }
+
+        table tr {
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 2px solid #ddd;
+        }
+
+        table td {
+            display: block;
+            text-align: right;
+            font-size: 14px;
+            border-bottom: 1px dotted #ccc;
+        }
+
+            table td a {
+                font-weight: bold;
+                color: blue;
+            }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+
+            table td:before {
+                content: attr(data-label);
+                font-size: 14px;
+                float: left;
+                font-weight: bold;
+            }
+    .barChart-container {
+        position: relative;
+        margin-bottom: 15px;
+        height: 35vh;
+        width: 95%;
+        background-color: rgba(210, 244, 249,0.4);
+        border-radius: 22px;
+        box-shadow: 5px 5px 15px #ccc;
+    }
+
+    .lineChart-container {
+        position: relative;
+        margin: auto;
+        height: 35vh;
+        width: 95%;
+        background-color: rgba(255, 229, 229,0.8);
+        border-radius: 22px;
+        box-shadow: 5px 5px 15px #ccc;
+    }
+}
+
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+
+/*html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+Sticky footer styles
+--------------------------------------------------
+html {
+    position: relative;
+    min-height: 100%;
+}*/
+
+
+
+
